@@ -1,0 +1,57 @@
+[
+  {
+    "save_name": "chengdu_road_gps_pretrain_sparse_test",
+    "dataset": {
+      "city": "chengdu",
+      "train_traj_df": "chengdu_train_sparse.h5",
+      "road_neighbors": "/root/autodl-tmp/TrajMamba/processed_data/road_meta/chengdu_sparse_road_neighbors_info.npz",
+      "compressed_pretrain_traj_df": "chengdu_train_sparse_compressed_keep-0.h5",
+      "test_traj_df": "chengdu_test_compressed_keep-0.h5"
+    },
+    "traj_clip": {
+      "road_weight": 1,
+      "poi_weight": 0,
+      "use_poi_view": false,
+      "use_textual_road_embed": false,
+      "use_road_in_traj_view": false,
+      "road_transW_lambda": 1.0
+    },
+    "trajectory_mamba": {
+      "embed_size": 64,
+      "d_model": 256,
+      "n_layer": 5,
+      "d_state": 32,
+      "headdim": 64,
+      "d_inner": 256,
+      "add_bcdt_item": true
+    },
+    "pred_head": {
+      "input_size": 256,
+      "hidden_size": 256,
+      "output_size": 6450,
+      "dropout": 0.3,
+      "pred_type": "classification"
+    },
+    "pretrain": {
+      "load": true,
+      "pretrain_save_name": "chengdu_road_gps_pretrain_sparse"
+    },
+    "test": {
+      "task": "search",
+      "save": true,
+      "search_data_params": {
+        "num_target": 200,
+        "num_negative": 500,
+        "same_OD_thres": 50
+      },
+      "dataloader": {
+        "batch_size": 16,
+        "num_workers": 0
+      },
+      "padder": {
+        "name": "search",
+        "params": {}
+      }
+    }
+  }
+]

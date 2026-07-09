@@ -1,0 +1,63 @@
+[
+    {
+        "save_name": "local_test_search",
+        "dataset": {
+            "city": "small_chengdu",
+            "train_traj_df": "small_chengdu_train.h5",
+            "poi_df": "./samples/small_chengdu.h5",
+            "poi_embed": "./samples/small_chengdu_poi_embed.npy",
+            "road_embed": "./samples/small_chengdu_road_embed.npy",
+            "road_neighbors": "small_chengdu_road_neighbors_info.npz",
+            "compressed_pretrain_traj_df": "small_chengdu_test_compressed_keep-0.h5",
+            "test_traj_df": "small_chengdu_test_compressed_keep-0.h5"
+        },
+        "traj_clip": {
+            "road_weight": 1,
+            "poi_weight": 1,
+            "pois_dist_thres": 300,
+            "poi_max_neighbors": 10,
+            "road_transW_lambda": 1.0,
+            "poi_distW_lambda": 0.5
+        },
+        "trajectory_mamba":{
+            "embed_size": 64,
+            "d_model": 256,
+            "n_layer": 5,
+            "d_state": 32,
+            "headdim": 64,
+            "d_inner": 256,
+            "add_bcdt_item": true
+        },
+        "pred_head": {
+            "input_size": 256,
+            "hidden_size": 256,
+            "output_size": 4315,
+            "dropout": 0.3,
+            "pred_type": "classification"
+        },
+        "pretrain": {
+            "load": true,
+            "pretrain_save_name":"local_test",
+            "teacher_model_savename": "local_test"
+        },
+        "test": {
+            "task": "search",
+            "save": true,
+            "search_data_params":{
+                "num_target": 30,
+                "num_negative": 17,
+                "same_OD_thres": 50,
+                "neg_random_choice": false
+            },
+            "dataloader": {
+                "batch_size": 16,
+                "num_workers": 0
+            },
+            "padder": {
+                "name": "search",
+                "params": {
+                }
+            }
+        }
+    }
+]

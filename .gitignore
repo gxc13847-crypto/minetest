@@ -1,0 +1,15 @@
+.vscode
+__pycache__
+.DS_Store
+settings/T*
+co*
+predictions
+processed_data/
+saved_model/
+samples/
+*.pth
+*.pt
+*.ckpt
+*.whl
+*.pyc
+log/
